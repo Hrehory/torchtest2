@@ -1,0 +1,5 @@
+flowchart LR
+    E["<b>eval mode</b><br/><i>plugin.eval_forward</i><br/><br/>forward<br/>output_shape<br/>output_finite<br/>output_range<br/>output_varies<br/>eval_determinism<br/>input_dependency<br/>batch_independence<br/>gradcheck (opt-in)"]
+    T["<b>train mode</b><br/><i>plugin.forward + plugin.loss</i><br/><br/>loss<br/>initial_loss<br/>gradient_flow<br/>gradient_magnitude<br/>params_change<br/>frozen_params<br/>overfit_batch"]
+    N["<b>no forward pass</b><br/><br/>optimizer_coverage<br/>gpu (opt-in)"]
+    E ~~~ T ~~~ N

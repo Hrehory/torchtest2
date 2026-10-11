@@ -1,0 +1,17 @@
+flowchart TB
+    subgraph BEFORE["before the checks"]
+        direction LR
+        A["check_model(model,<br/>inputs, targets, ...)"] --> B["resolve how to run<br/>the model: arguments,<br/>then plugin, then defaults"]
+        B --> C["copy the inputs<br/>(lazy modules:<br/>an initialised copy)"]
+        C --> D["snapshot: state_dict,<br/>non-persistent buffers,<br/>optimizer state, .grad,<br/>train/eval flags"]
+        D --> E["fork the PyTorch,<br/>Python and NumPy<br/>RNGs"]
+    end
+    subgraph EACH["for each of the 18 checks"]
+        direction LR
+        G["restore the snapshot, reseed"] --> H["run the check: PASS / WARN / FAIL / SKIP"]
+    end
+    subgraph AFTER["after the checks"]
+        direction LR
+        I["restore the snapshot and the RNGs"] --> J["Report"]
+    end
+    BEFORE --> EACH --> AFTER

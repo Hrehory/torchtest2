@@ -1,0 +1,16 @@
+sequenceDiagram
+    participant C as check
+    participant P as plugin
+    participant M as model
+    Note over C,M: training-mode checks (loss, gradients, optimizer steps, overfitting)
+    C->>P: forward(model, inputs, targets)
+    P->>M: model(inputs, targets)
+    M-->>P: train_out: logits, a dict of losses, ...
+    P-->>C: train_out, unchanged
+    C->>P: loss(train_out, targets, loss_fn)
+    P-->>C: one scalar
+    Note over C: backward(), inspect gradients,<br/>optimizer step
+    Note over C,M: eval-mode checks (outputs, input dependency, batch independence)
+    C->>P: eval_forward(model, inputs)
+    P->>M: model(inputs)
+    M-->>C: outputs

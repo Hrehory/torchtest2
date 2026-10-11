@@ -1,0 +1,18 @@
+{
+  "theme": "neutral",
+  "themeVariables": {
+    "fontFamily": "Helvetica, Arial, sans-serif",
+    "fontSize": "17px"
+  },
+  "sequence": {
+    "mirrorActors": false,
+    "actorFontSize": 17,
+    "messageFontSize": 17,
+    "noteFontSize": 16,
+    "wrap": false,
+    "actorMargin": 40,
+    "noteMargin": 8,
+    "messageMargin": 28,
+    "boxMargin": 6
+  }
+}

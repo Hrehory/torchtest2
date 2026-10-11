@@ -1,0 +1,83 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "torchtest2"
+dynamic = ["version"]
+description = "One-call sanity checks (pre-train) and behavioural tests (post-train) for PyTorch models"
+readme = "README.md"
+license = "Apache-2.0"
+license-files = ["LICENSE.txt"]
+authors = [{ name = "Grzegorz Gwardys", email = "grzegorz.gwardys@gmail.com" }]
+maintainers = [{ name = "Grzegorz Gwardys", email = "grzegorz.gwardys@gmail.com" }]
+requires-python = ">=3.10"
+dependencies = ["torch>=2.1"]
+keywords = ["pytorch", "testing", "deep learning", "unit tests", "sanity checks", "debugging", "checklist"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Framework :: Pytest",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Testing",
+    "Typing :: Typed",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "hypothesis>=6", "ruff>=0.6", "mypy>=1.10", "build>=1.2", "pre-commit>=3"]
+# frameworks of the built-in plugins, only needed to run their tests and README examples
+integrations = ["torchvision", "transformers", "lightning"]
+
+[project.urls]
+Homepage = "https://github.com/Hrehory/torchtest2"
+Documentation = "https://github.com/Hrehory/torchtest2#readme"
+Issues = "https://github.com/Hrehory/torchtest2/issues"
+Changelog = "https://github.com/Hrehory/torchtest2/releases"
+
+[tool.setuptools]
+packages = ["torchtest2", "torchtest2.plugins"]
+
+[tool.setuptools.package-data]
+torchtest2 = ["py.typed"]
+
+[tool.setuptools.dynamic]
+version = { attr = "torchtest2.__version__" }
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+filterwarnings = [
+    # torch warns at import when the optional NumPy is not installed; torchtest2 does not need it
+    "ignore:Failed to initialize NumPy:UserWarning",
+]
+
+[tool.mypy]
+python_version = "3.10"
+packages = ["torchtest2"]
+warn_unused_ignores = true
+
+[[tool.mypy.overrides]]
+module = ["numpy"]  # optional, only used by seed_everything
+ignore_missing_imports = true
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "SIM", "RUF"]
+ignore = ["RUF001", "RUF002", "RUF003", "B905", "SIM108"]
+
+[tool.ruff.lint.per-file-ignores]
+# tests deliberately contain buggy models (unused variables) and plain-text match patterns
+"tests/*" = ["B018", "RUF043", "RUF059"]
