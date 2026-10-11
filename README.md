@@ -3,8 +3,8 @@
 Pre-train sanity checks and post-train behavioural tests for PyTorch.</p>
 
 <p align="center">
-<a href="https://pypi.org/project/torchtest2/"><img alt="PyPI" src="https://img.shields.io/pypi/v/torchtest2"></a>
-<a href="https://pypi.org/project/torchtest2/"><img alt="Python" src="https://img.shields.io/pypi/pyversions/torchtest2"></a>
+<a href="https://pypi.org/project/torchtest2/"><img alt="PyPI" src="https://img.shields.io/pypi/v/torchtest2?cacheSeconds=3600"></a>
+<a href="https://pypi.org/project/torchtest2/"><img alt="Python" src="https://img.shields.io/pypi/pyversions/torchtest2?cacheSeconds=3600"></a>
 <img alt="License" src="https://img.shields.io/badge/license-Apache--2.0-blue">
 </p>
 
